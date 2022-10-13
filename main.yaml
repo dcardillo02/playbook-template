@@ -1,0 +1,5 @@
+- name: Install Node Exporter
+  hosts: Slaves_Prometheus
+  roles:
+    - role: '/home/davidecardillo/Documenti/Ansible_Prometheus_Conf_NodeExporter/NodeExporter/install_node_exporter'
+    - role: '/home/davidecardillo/Documenti/Ansible_Prometheus_Conf_NodeExporter/Prometheus_Add_NodeExporter/add_NodeExporter'
