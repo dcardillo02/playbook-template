@@ -1,5 +1,24 @@
 - name: Install Node Exporter
-  hosts: Slaves_Prometheus
+  hosts: all
+  become: true
   roles:
-    - role: '/home/davidecardillo/Documenti/Ansible_Prometheus_Conf_NodeExporter/NodeExporter/install_node_exporter'
-    - role: '/home/davidecardillo/Documenti/Ansible_Prometheus_Conf_NodeExporter/Prometheus_Add_NodeExporter/add_NodeExporter'
+    - role: '' #Name of the role or path
+
+- name: Install Prometheus
+  hosts: Main
+  become: true
+  roles:
+    - role: '' #Name of the role or path
+  vars:
+    prometheus_targets:
+      node:
+      - targets:
+          "{{ groups['all'] | map('extract', hostvars, ['ansible_host']) | map('regex_replace', '$', ':9100') | list }}"
+        labels:
+          env: '' #Set environment Example: test
+
+- name: Install Grafana
+  hosts: Main
+  become: true
+  roles:
+    - role: '' #Name of the role or path
